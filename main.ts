@@ -8,22 +8,22 @@ input.onButtonPressed(Button.A, function () {
     basic.showNumber(input.magneticForce(Dimension.Strength))
 })
 let test = false
-input.calibrateCompass()
-basic.showIcon(IconNames.Asleep)
-let light = input.lightLevel()
+basic.showIcon(IconNames.Heart)
 test = false
+let light = input.lightLevel()
+let strip = neopixel.create(DigitalPin.P0, 5, NeoPixelMode.RGB)
+strip.setBrightness(25)
 basic.forever(function () {
     basic.pause(500)
     if (input.magneticForce(Dimension.Strength) > 100) {
-        basic.showIcon(IconNames.Sad)
-        kitronik_servo_lite.driveBackwards(100)
-        kitronik_servo_lite.turnRight(90)
+        strip.showColor(neopixel.colors(NeoPixelColors.Red))
+        kitronik_servo_lite.driveBackwards(300)
     }
     if (input.lightLevel() > 50) {
-        basic.showIcon(IconNames.Happy)
+        strip.showColor(neopixel.colors(NeoPixelColors.Green))
         kitronik_servo_lite.driveForwards(100)
     } else {
-        basic.showIcon(IconNames.Asleep)
+        strip.showColor(neopixel.colors(NeoPixelColors.Blue))
         kitronik_servo_lite.turnLeft(90)
     }
 })
